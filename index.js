@@ -11,6 +11,17 @@ class Pokemon {
     showStatus() {
         return `Your pokemon has ${this.health} health and ${this.magic} magic left`
     }
+    attack(index, otherPokemon) {
+        if (this.skills[index].requiredMagic > this.magic) {
+            return `${Pokemon} doesn't have enough magic to use this skill!`
+        }
+        else {
+            return `The attack was successful : Your pokemon has now ${this.magic - this.skills[index].requiredMagic} magic left and ${otherPokemon.name} has ${otherPokemon.health - this.skills[index].damage} health!`
+        }
+    }
+    getMagic(moreMagic) {
+        return `Your pokemon now has ${this.magic + moreMagic} magic`
+    }
 }
 
 class AttackSkill {
@@ -21,7 +32,8 @@ class AttackSkill {
     }
 }
 
-const pikatchu = new Pokemon("pikatchu", 100, 50);
+const pikatchu = new Pokemon("pikatchu", 100, 100);
+const bulbasaur = new Pokemon("bulbasaur", 100, 100)
 
 const lightning = new AttackSkill("lightning", 90, 10)
 const fire = new AttackSkill("fire", 99, 20)
@@ -32,3 +44,5 @@ pikatchu.learnAttackSkill(fire)
 console.log(pikatchu);
 console.log(pikatchu.showStatus());
 console.log(lightning);
+console.log(pikatchu.attack(1, bulbasaur));
+console.log(bulbasaur.getMagic(50));
